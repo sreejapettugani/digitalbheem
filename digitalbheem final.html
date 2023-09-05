@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hotel Booking Registration Form</title>
+        <style>
+            body {
+              background-image: url('https://assets.graydientcreative.com/files/outlets/platinum/images/Princess%20Suite%20King%20Bed%20Mountain%20View.jpg');
+              background-repeat: no-repeat;
+              background-attachment: fixed;
+              background-size: cover;
+                
+            }
+            </style>
+</head>
+<body style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">  
+    <h1 style="color: blueviolet;font-family: Verdana, Geneva, Tahoma, sans-serif;">Hotel Booking Registration Form</h1>
+       <form id="booking-form">
+        <label style="font-size:30px" for="customer-name">Customer Name:</label>
+        <input styte="font-size:30px;"type="text" id="customer-name" name="customer-name" required><br><br>
+
+        <label style="font-size:30px;"for="check-in-date">Check-in Date:</label>
+        <input type="date" id="check-in-date" name="check-in-date" required><br><br>
+    
+        
+        <label style="font-size:30px;"for="total-days">Total No of Days:</label>
+        <input style="font-size:30px;"type="number" id="total-days" name="total-days" required><br><br>
+
+        <label style="font-size:30px;" for="total-persons">Total No of Persons:</label>
+        <input style="font-size:30px;" type="number" id="total-persons" name="total-persons" required><br><br>
+
+        <label style="font-size:30px;" for="room-type">Room Type:</label>
+        <select id="room-type" name="room-type">
+            <option value="Delux">Delux Room</option>
+            <option value="Suite">Suite Room</option>
+            <option value="guest">Guest Room</option>
+        </select><br><br>
+
+        <label style="font-size:30px;" for="advance-amount">Advance Amount:</label>
+        <input type="number" id="advance-amount" name="advance-amount" required><br><br>
+
+        <label style="font-size:30px;"for="convenience">convenience:</label>
+        <select id="convenience" name="convenience" multiple>
+            <option value="AC">AC</option>
+            <option value="Locker">Locker</option>
+            <option value ="transportation">Transportation</option>
+            <option value="Delivery Services">Delivery Services</option>
+            <option value="WIFI">WI-FI</option>
+        </select><br><br>
+
+        <label style="font-size:30px;"for="balance">Balance:</label>
+        <input style="font-size:30px;" type="number" id="balance" name="balance" readonly><br><br>
+
+        <label style="font-size:30px;">Total Room Cost:</label>
+        <input type="number" id="total-room-cost" name="total-room-cost" readonly><br><br>
+
+        <label style="font-size:30px;">Total convenience Cost:</label>
+        <input type="number" id="total-convenience-cost" name="total-convenience-cost" readonly><br><br>
+
+        <label style="font-size:30px;">Total Cost:</label>
+        <input type="number" id="total-cost" name="total-cost" readonly><br><br>
+
+        <button type="button" id="calculate">Calculate Total</button>
+    </form>
+
+    <script>
+        document.getElementById("calculate").addEventListener("click", function() {
+            // Calculate total room cost
+            const roomRate = document.getElementById("room-type").value === "Delux" ? 2500 : 4000;
+            const totalDays = parseInt(document.getElementById("total-days").value);
+            const totalRoomCost = roomRate * totalDays;
+            document.getElementById("total-room-cost").value = totalRoomCost;
+
+            // Calculate total convenience  cost
+            const convenienceCost = calculateconvenienceCost();
+            const totalconvenienceCost = convenienceCost * totalDays;
+            document.getElementById("total-convenience-cost").value = totalconvenienceCost;
+
+            // Calculate total cost
+            const totalCost = totalRoomCost + totalconvenienceCost;
+            document.getElementById("total-cost").value = totalCost;
+
+            // Calculate balance
+            const advanceAmount = parseInt(document.getElementById("advance-amount").value);
+            document.getElementById("balance").value = totalCost - advanceAmount;
+        });
+
+        function calculateconvenienceCost() {
+            const convenienceSelect = document.getElementById("convenience");
+            let convenienceCost = 0;
+            for (let option of convenienceSelect.options) {
+                if (option.selected) {
+                    if (option.value === "AC") {
+                        convenienceCost += 1000;
+                    } else if (option.value === "Locker") {
+                        convenienceCost += 300;
+                    }
+                }
+            }
+            return convenienceCost;
+        }
+    </script>
+</body>
+</htmL>
+</body>
+</html>
